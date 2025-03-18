@@ -8,32 +8,32 @@ std::vector<int> prefixFunc(std::string pattern) {
         prefix.push_back(0);
     }
 
-    int ptr2 = 0;
+    int ptr1 = 0;
 
     std::cout << "\033[31m" << "Расчёт префикс-функции" << "\033[0m" << std::endl << std::endl;
     std::cout << "prefix[0] == 0 по условию" << std::endl << std::endl;
 
-    for (int ptr1 = 1; ptr1 < prefix.size(); ++ptr1) {
-        while (ptr2 > 0 && pattern[ptr1] != pattern[ptr2]) {
-            std::cout << "ptr2 > 0 и символы " << pattern[ptr1] << "(" << ptr1 << ") и " << pattern[ptr2] << "(" << ptr2 << ") различны" << std::endl;
-            std::cout << "ptr2 заменяется на предыдущее значение массива префикс-значений == " << prefix[ptr2 - 1] << std::endl << std::endl;
-            ptr2 = prefix[ptr2 - 1];
+    for (int ptr2 = 1; ptr2 < prefix.size(); ++ptr2) {
+        while (ptr1 > 0 && pattern[ptr1] != pattern[ptr2]) {
+            std::cout << "ptr1 > 0 и символы " << pattern[ptr1] << "(" << ptr1 << ") и " << pattern[ptr2] << "(" << ptr2 << ") различны" << std::endl;
+            std::cout << "ptr1 заменяется на предыдущее значение массива префикс-значений по индексу [ptr1 - 1] == " << prefix[ptr1 - 1] << std::endl << std::endl;
+            ptr1 = prefix[ptr1 - 1];
         }
 
         if (pattern[ptr1] == pattern[ptr2]) {
             std::cout << "Символы на позициях (" << ptr1 << ") и (" << ptr2 << ") совпали" << std::endl;
-            std::cout << "ptr2 увеличивается на 1" << std::endl;
-            ++ptr2;
-            std::cout << "prefix[" << ptr1 << "] == " << ptr2 << std::endl;
-            prefix[ptr1] = ptr2;
-            std::cout << "ptr1 увеличивается на 1" << std::endl << std::endl;
+            std::cout << "ptr1 увеличивается на 1" << std::endl;
+            ++ptr1;
+            std::cout << "prefix[" << ptr2 << "] == " << ptr1 << std::endl;
+            prefix[ptr2] = ptr1;
+            std::cout << "ptr2 увеличивается на 1" << std::endl << std::endl;
             continue;
         }
 
         std::cout << "Символы на позициях (" << ptr1 << ") и (" << ptr2 << ") различны" << std::endl;
-        std::cout << "prefix[" << ptr1 << "] == 0" << std::endl;
-        prefix[ptr1] = 0;
-            std::cout << "ptr1 увеличивается на 1" << std::endl << std::endl;
+        std::cout << "prefix[" << ptr2 << "] == 0" << std::endl;
+        prefix[ptr2] = 0;
+        std::cout << "ptr2 увеличивается на 1" << std::endl << std::endl;
     }
 
     return prefix;
