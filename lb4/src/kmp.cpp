@@ -21,17 +21,19 @@ std::vector<int> prefixFunc(std::string pattern) {
         }
 
         if (pattern[ptr1] == pattern[ptr2]) {
-            std::cout << "Символы на позициях " << ptr1 << " и " << ptr2 << " совпали" << std::endl;
+            std::cout << "Символы на позициях (" << ptr1 << ") и (" << ptr2 << ") совпали" << std::endl;
             std::cout << "ptr2 увеличивается на 1" << std::endl;
             ++ptr2;
-            std::cout << "prefix[" << ptr1 << "] == " << ptr2 << std::endl << std::endl;
-            prefix[ptr1] = ptr2; 
+            std::cout << "prefix[" << ptr1 << "] == " << ptr2 << std::endl;
+            prefix[ptr1] = ptr2;
+            std::cout << "ptr1 увеличивается на 1" << std::endl << std::endl;
             continue;
         }
 
-        std::cout << "Символы на позициях " << ptr1 << " и " << ptr2 << " различны" << std::endl;
-        std::cout << "prefix[" << ptr1 << "] == 0" << std::endl << std::endl;
+        std::cout << "Символы на позициях (" << ptr1 << ") и (" << ptr2 << ") различны" << std::endl;
+        std::cout << "prefix[" << ptr1 << "] == 0" << std::endl;
         prefix[ptr1] = 0;
+            std::cout << "ptr1 увеличивается на 1" << std::endl << std::endl;
     }
 
     return prefix;
@@ -40,7 +42,7 @@ std::vector<int> prefixFunc(std::string pattern) {
 std::vector<int> kmp_algorithm(std::string text, std::string pattern) {
     std::vector<int> prefix = prefixFunc(pattern);
 
-    std::cout << std::endl << "Полученные значения префикс функции для каждого символа паттерна:" << std::endl;
+    std::cout << "Полученные значения префикс функции для каждого символа паттерна:" << std::endl;
     for (int i = 0; i < prefix.size(); ++i) {
         std::cout << pattern[i] << " ";
     }
@@ -55,7 +57,7 @@ std::vector<int> kmp_algorithm(std::string text, std::string pattern) {
     int ptrText = 0;
     std::vector<int> answer;
 
-    std::cout << "\033[31m" << "Вычисление вхождений" << "\033[0m" << std::endl;
+    std::cout << "\033[31m" << "Вычисление вхождений" << "\033[0m" << std::endl << std::endl;
 
     while (ptrText < text.size()) {
         while (ptrPattern > 0 && text[ptrText] != pattern[ptrPattern]) {

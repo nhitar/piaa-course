@@ -8,10 +8,11 @@ std::vector<int> prefixFunc(std::string pattern) {
         prefix.push_back(0);
     }
 
+    int ptr2 = 0;
+
     std::cout << "\033[31m" << "Расчёт префикс-функции" << "\033[0m" << std::endl << std::endl;
     std::cout << "prefix[0] == 0 по условию" << std::endl << std::endl;
-    
-    int ptr2 = 0;
+
     for (int ptr1 = 1; ptr1 < prefix.size(); ++ptr1) {
         while (ptr2 > 0 && pattern[ptr1] != pattern[ptr2]) {
             std::cout << "ptr2 > 0 и символы " << pattern[ptr1] << "(" << ptr1 << ") и " << pattern[ptr2] << "(" << ptr2 << ") различны" << std::endl;
@@ -20,17 +21,19 @@ std::vector<int> prefixFunc(std::string pattern) {
         }
 
         if (pattern[ptr1] == pattern[ptr2]) {
-            std::cout << "Символы на позициях " << ptr1 << " и " << ptr2 << " совпали" << std::endl;
+            std::cout << "Символы на позициях (" << ptr1 << ") и (" << ptr2 << ") совпали" << std::endl;
             std::cout << "ptr2 увеличивается на 1" << std::endl;
             ++ptr2;
-            std::cout << "prefix[" << ptr1 << "] == " << ptr2 << std::endl << std::endl;
-            prefix[ptr1] = ptr2; 
+            std::cout << "prefix[" << ptr1 << "] == " << ptr2 << std::endl;
+            prefix[ptr1] = ptr2;
+            std::cout << "ptr1 увеличивается на 1" << std::endl << std::endl;
             continue;
         }
 
-        std::cout << "Символы на позициях " << ptr1 << " и " << ptr2 << " различны" << std::endl;
-        std::cout << "prefix[" << ptr1 << "] == 0" << std::endl << std::endl;
+        std::cout << "Символы на позициях (" << ptr1 << ") и (" << ptr2 << ") различны" << std::endl;
+        std::cout << "prefix[" << ptr1 << "] == 0" << std::endl;
         prefix[ptr1] = 0;
+            std::cout << "ptr1 увеличивается на 1" << std::endl << std::endl;
     }
 
     return prefix;
@@ -48,9 +51,21 @@ int shift_algorithm(std::string a, std::string b) {
     }
 
     std::vector<int> prefix = prefixFunc(a);
+
+    std::cout << "Полученные значения префикс функции для каждого символа паттерна:" << std::endl;
+    for (int i = 0; i < a.size(); ++i) {
+        std::cout << a[i] << " ";
+    }
+    std::cout << std::endl;
+
+    for (int i = 0; i < a.size(); ++i) {
+        std::cout << prefix[i] << " ";
+    }
+    std::cout << std::endl << std::endl;
+
     int ptrA = 0;
 
-    std::cout << "\033[31m" << "Вычисление сдвига" << "\033[0m" << std::endl;
+    std::cout << "\033[31m" << "Вычисление сдвига" << "\033[0m" << std::endl << std::endl;
 
     for (int ptrB = 0; ptrB < a.size() * 2; ++ptrB) {
         while (ptrA > 0 && a[ptrA] != b[ptrB % a.size()]) {
