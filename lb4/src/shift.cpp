@@ -67,23 +67,23 @@ int shift_algorithm(std::string a, std::string b) {
 
     std::cout << "\033[31m" << "Вычисление сдвига" << "\033[0m" << std::endl << std::endl;
 
-    for (int ptrB = 0; ptrB < a.size() * 2; ++ptrB) {
-        while (ptrA > 0 && a[ptrA] != b[ptrB % a.size()]) {
-            std::cout << "ptrA > 0 и символы " << a[ptrA] << "(" << ptrA << ") и " << b[ptrB % a.size()] << "(" << ptrB << ") различны" << std::endl;
+    for (int ptrB = 0; ptrB < b.size() * 2; ++ptrB) {
+        while (ptrA > 0 && a[ptrA] != b[ptrB % b.size()]) {
+            std::cout << "ptrA > 0 и символы " << a[ptrA] << "(" << ptrA << ") и " << b[ptrB % b.size()] << "(" << ptrB << ") различны" << std::endl;
             std::cout << "ptrA заменяется на предыдущее значение массива префикс-значений == " << prefix[ptrA - 1] << std::endl << std::endl;
             ptrA = prefix[ptrA - 1];
         }
 
-        if (a[ptrA] == b[ptrB % a.size()]) {
-            if (ptrB >= a.size()) {
-                std::cout << "Символы на позициях (" << ptrA << ") и (" << ptrB % a.size() << ") - по модулю длины, совпали" << std::endl;
+        if (a[ptrA] == b[ptrB % b.size()]) {
+            if (ptrB >= b.size()) {
+                std::cout << "Символы на позициях (" << ptrA << ") и (" << ptrB % b.size() << ") - по модулю длины, совпали" << std::endl;
             } else {
-                std::cout << "Символы на позициях (" << ptrA << ") и (" << ptrB % a.size() << ") совпали" << std::endl;
+                std::cout << "Символы на позициях (" << ptrA << ") и (" << ptrB % b.size() << ") совпали" << std::endl;
             }
 
             if (ptrA == a.size() - 1) {
                 std::cout << "Полное совпадение" << std::endl << std::endl;
-                return (a.size()*2 - (ptrB + 1)) % a.size();
+                return (b.size()*2 - (ptrB + 1)) % b.size();
             }
 
             std::cout << "ptrA увеличивается на 1" << std::endl;
@@ -91,7 +91,7 @@ int shift_algorithm(std::string a, std::string b) {
             ++ptrA;
             continue;
         }
-        std::cout << "Символы на позициях (" << ptrA << ") и (" << ptrB % a.size() << ") различны" << std::endl;
+        std::cout << "Символы на позициях (" << ptrA << ") и (" << ptrB % b.size() << ") различны" << std::endl;
         std::cout << "ptrB увеличивается на 1" << std::endl << std::endl;
 
     }
@@ -113,7 +113,7 @@ int main() {
 
     if (answer == -1) {
         std::cout << -1 << std::endl;
-        std::cout << "A не является циклическим сдвигом B" << std::endl;
+        std::cout << "B не является циклическим сдвигом A" << std::endl;
         return 0;
     }
 
