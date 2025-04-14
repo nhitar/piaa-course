@@ -85,18 +85,31 @@ def check_solution(s1, s2, solution):
     s = list(s1)
     ptr = 0
     for option in solution:
-        print(''.join(s), option, ptr)
+        print(f"\nСлово до операции \033[34m{''.join(s)}\033[0m")
+        if option == 'M':
+            print("Операция \033[31mM\033[0m, символы совпали")
+            ptr += 1
+            print("Указатель сдвигается на символ", ptr + 1)
+            continue
+        print(f"Операция \033[31m{option}\033[0m применяется к символу", ptr+1)
         if option == 'R':
+            print(f"Символ {s[ptr]} заменился на {s2[ptr]}")
             s[ptr] = s2[ptr]
         elif option == 'I':
+            print(f"Символ {s2[ptr]} вставлен в слово")
             s.insert(ptr, s2[ptr])
         elif option == 'D':
+            print(f"Символ {s[ptr]} удалён")
             del s[ptr]
             ptr -= 1
-        ptr += 1
-        print(''.join(s), option, ptr, "\n")
+            print("Указатель остаётся на символе", ptr + 2)
 
-    print("Изменённая s1 по сравнению с s2")
+        ptr += 1
+        if option != 'D':
+            print("Указатель сдвигается на символ", ptr + 1)
+        print(f"Слово после операции \033[32m{''.join(s)}\033[0m")
+
+    print("\nИзменённая s1 по сравнению с s2")
     print(''.join(s))
     print(s2)
     if ''.join(s) == s2:
