@@ -35,6 +35,6 @@ class MatrixGenerator:
                     matrix[i][j] = math.inf
                 else:
                     distance = math.sqrt(sum((points[i][k] - points[j][k]) ** 2 for k in range(dimensions)))
-                    matrix[i][j] = int(distance)
-                    matrix[j][i] = int(distance)
+                    matrix[i][j] = round(distance, 2)
+                    matrix[j][i] = round(distance, 2)
         return matrix

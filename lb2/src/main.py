@@ -51,7 +51,7 @@ class Handler:
         file.close()
 
     def save_matrix(self):
-        if self.matrix is []:
+        if not self.matrix:
             print("Матрица пустая\n")
             return
 
@@ -63,7 +63,7 @@ class Handler:
         file.close()
 
     def little_init(self):
-        if self.matrix is []:
+        if not self.matrix:
             self.generate_matrix("normal")
 
         copy_matrix = copy.deepcopy(self.matrix)
@@ -90,13 +90,11 @@ class Handler:
             res.append(nxt - 1)
             nxt = l.arcs[nxt]
         print(*res, sep=" ")
-
-        # print("best path:", l.arcs)
         print(l.record / 1)
 
     def ado_mod_init(self):
-        if self.matrix is []:
-            self.generate_matrix("normal")
+        if not self.matrix:
+            self.generate_matrix("euclidean")
 
         print("Введи начальную вершину")
         start = int(input())
