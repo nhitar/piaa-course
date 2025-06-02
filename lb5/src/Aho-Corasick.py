@@ -69,20 +69,41 @@ class AhoCorasick:
 
                 queue.append(child)
 
-    def print_trie(self, node=None, level=0):
+    def print_trie(self, node=None, level=0, prefix=''):
         if node is None:
             node = self.root
             print("\n\033[1;34m3. Визуализация бора:\033[0m")
+            print("root [fail → self]")
+            level = 1
 
-        prefix = "    " * level
-        char = node.char if node.char else "root"
-        term = " [TERM]" if node.is_terminal else ""
-        fail = f" (fail: '{node.fail.char if node.fail and node.fail.char else 'root'}')" if node.fail else ""
-        out = f" [output: {node.output}]" if node.output else ""
-        print(f"{prefix}└── {char}{term}{fail}{out}")
+        children = list(node.children.values())
 
-        for child in node.children.values():
-            self.print_trie(child, level + 1)
+        for i, child in enumerate(children):
+            is_last = i == len(children) - 1
+            new_prefix = prefix + ("    " if is_last else "│   ")
+
+            node_info = f"{child.char}"
+            node_info += " [TERM]" if child.is_terminal else ""
+            node_info += f" [output: {child.output}]" if child.output else ""
+
+            if child.fail:
+                if child.fail == self.root:
+                    fail_info = "root"
+                else:
+                    fail_path = []
+                    fail_node = child.fail
+                    while fail_node != self.root:
+                        fail_path.append(fail_node.char)
+                        fail_node = fail_node.parent
+                    fail_path.reverse()
+                    fail_info = "'" + ''.join(fail_path) + "'"
+
+                node_info += f" [fail → {fail_info}]"
+
+            branch = "└── " if is_last else "├── "
+            print(prefix + branch + node_info)
+
+            self.print_trie(child, level + 1, new_prefix)
 
     def search(self, text):
         print(f"\n\033[1;34m4. Поиск в тексте '{text}':\033[0m")
